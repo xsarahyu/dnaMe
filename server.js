@@ -7,8 +7,10 @@ const MongoStore = require("connect-mongo")(session);
 const methodOverride = require("method-override");
 const flash = require("express-flash");
 const logger = require("morgan");
+
 const connectDB = require("./config/database");
 const mainRoutes = require("./routes/main");
+const analysisRoutes = require("./routes/analysis")
 
 // Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
@@ -28,7 +30,6 @@ app.use(express.static("public"));
 // Body parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// Insert new route here for comments
 
 // Logging
 app.use(logger("dev"));
@@ -46,7 +47,7 @@ app.use(
   })
 );
 
-// Passport middleware
+// Middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -55,6 +56,7 @@ app.use(flash());
 
 // Setup routes for which the server is listening
 app.use("/", mainRoutes);
+app.use("/upload", analysisRoutes);
 
 // Server running
 app.listen(process.env.PORT, () => {
