@@ -56,7 +56,9 @@ app.use(flash());
 
 // Setup routes for which the server is listening
 app.use("/", mainRoutes);
-app.use("/upload", analysisRoutes);
+app.use('/profile', mainRoutes); //
+app.use('/edit-profile', mainRoutes); //
+app.use("/upload", analysisRoutes); //
 
 // Server running
 app.listen(process.env.PORT, () => {

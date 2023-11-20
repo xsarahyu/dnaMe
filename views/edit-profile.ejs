@@ -8,50 +8,18 @@
   <title>dnaMe</title>
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/maicons.css">
-  <link rel="stylesheet" href="css/profile.css">
+  <!-- <link rel="stylesheet" href="css/edit-profile.css"> -->
+  <!-- or -->
+  <!-- <link rel="stylesheet" href="css/profile.css"> -->
+  <!-- TBD -->
   <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="vendor/animate/animate.css">
   <link rel="stylesheet" href="vendor/owl-carousel/css/owl.carousel.css">
 </head>
 
 <body>
-  <div class="back-to-top"></div>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light navbar-float">
-      <div class="container">
-        <a href="/" class="navbar-brand">dna<span class="text-primary">Me</span></a>
-
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="navbar-collapse collapse" id="navbarContent">
-          <ul class="navbar-nav ml-lg-4 pt-3 pt-lg-0">
-            <li class="nav-item active">
-              <a href="/profile" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="/health" class="nav-link">Health</a>
-            </li>
-            <li class="nav-item">
-              <a href="/research" class="nav-link">Research</a>
-            </li>
-          </ul>
-
-          <div class="ml-auto dropdown">
-            <div class="dropdown">
-              <a class="dropdown-toggle btn btn-primary rounded-pill" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Profile
-              </a>
-              <div class="dropdown-menu" aria-labelledby="profileDropdown">
-                <a class="dropdown-item" href="/edit-profile">Edit Profile</a>
-                <a class="dropdown-item" href="/settings">Settings</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <!-- Nav, branding, etc. -->
   </header>
 
   <main>
@@ -59,19 +27,26 @@
       <div class="container">
         <div class="row justify-content-center align-items-center h-100">
           <div class="col-lg-6 mt-sm-6 wow fadeInUp text-center">
-            <h2 class="title-section">Hello, <%= user.userName %></h2>
-            <span class="text-lg">Already sequenced your DNA? Upload your raw data (.txt) here:</span>
-            
-            <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
-              <input type="file" name="file" id="fileInput" accept=".txt" style="display: none;">
-              <button type="submit" class="btn btn-primary rounded-pill mt-4" id="uploadButton">Upload</button>
+            <h2 class="title-section">Edit Profile</h2>
+            <form action="/edit-profile" method="post">
+              <label for="ethnicity">Ethnicity:</label>
+              <input type="text" name="ethnicity" id="ethnicity" value="<%= user.ethnicity %>">
+              <br>
+
+              <label for="birthdate">Date of Birth</label>
+              <input type="date" name="birthdate" id="birthdate" value="<%= user.birthdate %>">
+              <br>
+
+              <button type="submit" class="btn btn-primary rounded-pill mt-4">Save Changes</button>
             </form>
+
+            <button type="button" class="btn btn-danger rounded-pill mt-4" id="deleteProfileButton">Delete Profile</button>
           </div>
         </div>
       </div> <!-- .container -->
     </div> <!-- .page-section -->
   </main>
-  
+
   <footer class="page-footer">
     <div class="container">
       <div class="row justify-content-center mb-5">
@@ -135,4 +110,5 @@
   <script src="js/profile.js"></script>
 
 </body>
+
 </html>

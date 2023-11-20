@@ -1,5 +1,7 @@
+// controllers/analysisController.js
+
 module.exports = {
-  consoleLog: async (req, res) => {
+  analyze: async (req, res) => {
     try {
       if (!req.file) return res.status(400).send('No file uploaded!');
 
