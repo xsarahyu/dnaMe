@@ -9,6 +9,8 @@ dnaMe revolutionizes this landscape by providing users with a comprehensive anal
 
 Join us as we embark on a mission to redefine personal health insights through advanced DNA analysis. Together, let's unlock a deeper understanding of our genetic health profiles for a healthier tomorrow.
 
+<img src="index.png">
+
 ### Features
 - **User Authentication**: Implements Passport.js for secure local authentication, ensuring user data protection.
 - **Data Management**: Securely upload DNA data for analysis.
