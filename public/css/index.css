@@ -1,0 +1,26 @@
+/* Prevent navbar right shift upon clicking Log In or Sign Up */
+body {
+  overflow-y: scroll !important;
+  padding-right: 0 !important;
+}
+
+#loginModal, #signupModal {
+  margin-top: 100px;
+}
+
+.mb-n6 {
+  margin-bottom: -4rem !important;
+}
+
+#main-banner {
+  margin-top: 60px;
+}
+
+.vision-img {
+  border-radius: 8px;
+}
+
+#contact-banner {
+  height: 600px;
+  margin-bottom: 100px;
+}
