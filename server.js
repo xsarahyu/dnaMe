@@ -58,9 +58,8 @@ app.use(flash());
 app.use("/", mainRoutes);
 app.use('/profile', mainRoutes); //
 app.use('/edit-profile', mainRoutes); //
-app.use("/upload", analysisRoutes); //
+app.use("/analysis", analysisRoutes); //
 
-// Server running
 app.listen(process.env.PORT, () => {
-  console.log("Server is running, you better catch it!");
+  console.log("Server is running");
 });
