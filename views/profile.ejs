@@ -59,7 +59,7 @@
       <div class="container">
         <div class="row justify-content-center align-items-center h-100">
           <div class="col-lg-6 mt-sm-6 wow fadeInUp text-center">
-            <h2 class="title-section">Hello, <%= user.userName %></h2>
+            <h2 class="title-section">Hello, <%= user.firstName %></h2>
             <span class="text-lg">Already sequenced your DNA? Upload your raw data (.txt) here:</span>
             
             <form action="/analysis/upload" method="post" enctype="multipart/form-data">
@@ -71,7 +71,7 @@
       </div> <!-- .container -->
     </div> <!-- .page-section -->
   </main>
-  
+
   <footer class="page-footer">
     <div class="container">
       <div class="row justify-content-center mb-5">

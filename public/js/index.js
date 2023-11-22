@@ -1,44 +1,63 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Function to handle button clicks
-  function handleButtonClick(buttonId, modalId) {
-    var button = document.getElementById(buttonId);
-    var modal = $(modalId);
+// Show login modal upon clicking Log In
+$(document).ready(function () {
+  $('#loginButton').click(function () {
+    $('#loginModal').modal('show')
+  })
+})
 
-    if (button) {
-      button.addEventListener("click", function () {
-        // Check if navbar is collapsed (small screen size)
-        if (window.innerWidth < 992) {
-          // Trigger click on the navbar-toggler button to fold back the dropdown
-          document.querySelector(".navbar-toggler").click();
-        }
+// Show signup modal upon clicking Sign Up
+$(document).ready(function () {
+  $('#signupButton').click(function () {
+    $('#signupModal').modal('show')
+  })
+})
 
-        // Close if other modal open
-        var otherModalId = modalId === "#loginModal" ? "#signupModal" : "#loginModal";
-        var otherModal = $(otherModalId);
-        if (otherModal.hasClass("show")) {
-          otherModal.modal('hide');
-        }
+// Configure what generally happens when user clicks Log In or Sign Up
+function handleButtonClick(buttonID, modalID) {
+  const button = document.getElementById(buttonID)
+  const modal = $(modalID)
 
-        // Show the clicked modal
-        modal.modal('show');
-      });
-    }
+  // Close navbar dropdown on small screens
+  if (button) {
+    button.addEventListener('click', function () {
+      if (window.innerWidth < 992) { // Check if small screen
+        document.querySelector('.navbar-toggler').click() // Trigger ghost click on navbar-toggler button to fold dropdown back up
+      }
+
+      // Close other modal if open
+      const otherModalId = modalID === '#loginModal' ? '#signupModal' : '#loginModal'
+      const otherModal = $(otherModalId)
+      if (otherModal.hasClass('show')) {
+        otherModal.modal('hide')
+      }
+
+      modal.modal('show') // Show clicked modal
+    })
   }
+}
 
-  handleButtonClick("loginButton", "#loginModal");
-  handleButtonClick("signupButton", "#signupModal");
-});
+handleButtonClick('loginButton', '#loginModal')
+handleButtonClick('signupButton', '#signupModal')
 
-// Login modal
-$(document).ready(function () {
-  $("#loginButton").click(function () {
-    $("#loginModal").modal('show');
-  });
-});
+// AJAX form submission - Prevents redirect to separate /signup or /login page
+function handleFormSubmission(formID, modalID) {
+  $(document).on('submit', formID, function (e) {
+    e.preventDefault() // Prevent default form submission
 
-// Signup modal
-$(document).ready(function () {
-  $("#signupButton").click(function () {
-    $("#signupModal").modal('show');
-  });
-});
+    $.ajax({
+      type: 'POST',
+      url: $(this).attr('action'),
+      data: $(this).serialize(),
+      success: function (response) {
+        console.log('Form submitted successfully')
+        $(modalID).modal('hide') // Close modal upon successful submission
+      },
+      error: function(error) {
+        console.error('Error submitting the form', error)
+      },
+    })
+  })
+}
+
+handleFormSubmission('#loginForm', '#loginModal')
+handleFormSubmission('#signupForm', '#signupModal')
