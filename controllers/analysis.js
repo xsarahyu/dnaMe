@@ -18,19 +18,20 @@ module.exports = {
         return 'Not found'
       }
 
+      const name = req.user.firstName
       function analyzeAlzheimersRisk(rs429358Genotype, rs7412Genotype) {
         if (rs429358Genotype === 'TT' && rs7412Genotype === 'TT') {
-          return 'APOE allele ε2/ε2, lower risk'
+          return `${name}, your APOE genotype is ε2/ε2. You have lower risk than normal of developing Alzheimer\'s disease.`
         } else if (rs429358Genotype === 'TT' && rs7412Genotype === 'CT') {
-          return 'APOE allele ε2/ε3, lower risk'
+          return `${name}, your APOE genotype is ε2/ε3. You have lower risk than normal of developing Alzheimer\'s disease.`
         } else if (rs429358Genotype === 'CT' && rs7412Genotype === 'CT') {
-          return 'APOE allele ε2/ε4, slightly higher risk than normal'
+          return `${name}, your APOE genotype is ε2/ε4. You have slightly higher risk than normal of developing Alzheimer\'s disease.`
         } else if (rs429358Genotype === 'TT' && rs7412Genotype === 'CC') {
-          return 'APOE allele ε3/ε3, normal risk'
+          return `${name}, your APOE genotype is ε3/ε3. You have normal risk of developing Alzheimer\'s disease.`
         } else if (rs429358Genotype === 'CT' && rs7412Genotype === 'CC') {
-          return 'APOE allele ε3/ε4, higher risk than normal'
+          return `${name}, your APOE genotype is ε3/ε4. You have higher risk than normal of developing Alzheimer\'s disease.`
         } else if (rs429358Genotype === 'CC' && rs7412Genotype === 'CC') {
-          return 'APOE allele ε4/ε4, highest risk'
+          return `${name}, your APOE genotype is ε4/ε4. You have high risk of developing Alzheimer\'s disease.`
         } else {
           return 'Invalid genotypes'
         }
@@ -38,7 +39,9 @@ module.exports = {
 
       const rs429358Genotype = getGenotype('rs429358')
       const rs7412Genotype = getGenotype('rs7412')
-      analyzeAlzheimersRisk(rs429358Genotype, rs7412Genotype)
+      const analysis = analyzeAlzheimersRisk(rs429358Genotype, rs7412Genotype)
+
+      res.render('analysis', { analysis })
 
     } catch (error) {
       console.error(error)
