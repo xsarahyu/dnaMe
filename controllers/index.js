@@ -1,4 +1,4 @@
-// controllers/homeController.js
+// controllers/indexController.js
 
 module.exports = {
   getIndex: (req, res) => {

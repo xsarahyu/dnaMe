@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const authController = require('../controllers/auth')
-const homeController = require('../controllers/home')
+const indexController = require('../controllers/index')
 const userController = require('../controllers/user')
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
 // Main Routes
-router.get('/', homeController.getIndex)
+router.get('/', indexController.getIndex)
 router.get('/profile', ensureAuth, userController.getProfile)
 
 router.get('/login', authController.getLogin)
