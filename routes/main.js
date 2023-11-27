@@ -7,7 +7,7 @@ const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
 // Main Routes
 router.get('/', indexController.getIndex)
-router.get('/profile', ensureAuth, userController.getProfile)
+router.get('/home', ensureAuth, userController.getHome)
 
 router.get('/login', authController.getLogin)
 router.post('/login', authController.postLogin)
@@ -16,11 +16,5 @@ router.get('/logout', userController.logout)
 
 router.get('/signup', authController.getSignup)
 router.post('/signup', authController.postSignup)
-
-// GET request to edit-profile page
-router.get('/edit-profile', ensureAuth, userController.getEditProfile)
-// PUT request to update user's profile
-router.put('/edit-profile', ensureAuth, userController.putEditProfile)
-// DEL request to delete user's profile
 
 module.exports = router

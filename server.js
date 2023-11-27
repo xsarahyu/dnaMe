@@ -55,8 +55,7 @@ app.use(passport.session())
 app.use(flash())
 
 app.use('/', mainRoutes)
-app.use('/profile', mainRoutes)
-app.use('/edit-profile', mainRoutes) //
+app.use('/home', mainRoutes)
 app.use('/analysis', analysisRoutes)
 
 app.listen(process.env.PORT, () => {
