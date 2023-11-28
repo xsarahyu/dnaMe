@@ -11,6 +11,7 @@ const logger = require('morgan')
 const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 const analysisRoutes = require('./routes/analysis')
+const profileRoutes = require('./routes/profile')
 
 // Use .env file in config folder
 require('dotenv').config({ path: './config/.env' })
@@ -56,6 +57,7 @@ app.use(flash())
 
 app.use('/', mainRoutes)
 app.use('/home', mainRoutes)
+app.use('/profile', profileRoutes)
 app.use('/analysis', analysisRoutes)
 
 app.listen(process.env.PORT, () => {

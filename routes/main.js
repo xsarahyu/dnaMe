@@ -3,7 +3,7 @@ const router = express.Router()
 const authController = require('../controllers/auth')
 const indexController = require('../controllers/index')
 const userController = require('../controllers/user')
-const { ensureAuth, ensureGuest } = require('../middleware/auth')
+const { ensureAuth } = require('../middleware/auth')
 
 // Main Routes
 router.get('/', indexController.getIndex)

@@ -3,7 +3,6 @@
 const User = require('../models/User')
 
 exports.getHome = (req, res) => {
-  // Retrieve user info from DB or req.user object
   const userData = {
     firstName: req.user.firstName,
     lastName: req.user.lastName,
