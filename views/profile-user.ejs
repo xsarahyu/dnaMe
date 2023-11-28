@@ -40,10 +40,10 @@
           <div class="ml-auto dropdown">
             <div class="dropdown">
               <a class="dropdown-toggle btn btn-primary rounded-pill" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Profile
+                <%= user.firstName %>
               </a>
               <div class="dropdown-menu" aria-labelledby="profileDropdown">
-                <a class="dropdown-item" href="/edit-profile">Edit Profile</a>
+                <a class="dropdown-item" href="/edit-profile">Profile</a>
                 <a class="dropdown-item" href="/settings">Settings</a>
               </div>
             </div>
@@ -76,7 +76,6 @@
                 <input type="file" class="custom-file-input" name="file" id="file" accept=".txt">
                 <label class="custom-file-label" for="file">Choose file</label>
               </div>
-              <!-- <br> -->
               <button type="submit" class="btn btn-primary rounded-pill mt-4">Upload</button>
             </form>
           </div>
