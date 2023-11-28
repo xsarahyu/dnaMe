@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>dnaMe</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/maicons.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="vendor/animate/animate.css">
+  <link rel="stylesheet" href="vendor/owl-carousel/css/owl.carousel.css">
+</head>
+
+<body>
+  <div class="back-to-top"></div>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light navbar-float">
+      <div class="container">
+        <a href="/" class="navbar-brand">dna<span class="text-primary">Me</span></a>
+
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarContent">
+          <ul class="navbar-nav ml-lg-4 pt-3 pt-lg-0">
+            <li class="nav-item active">
+              <a href="/home" class="nav-link">Home</a>
+            </li>
+          </ul>
+
+          <div class="ml-auto dropdown">
+            <div class="dropdown">
+              <a class="dropdown-toggle btn btn-primary rounded-pill" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= counselor.firstName %>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                <a class="dropdown-item" href="/profile">Profile</a>
+                <a class="dropdown-item" href="/settings">Settings</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-section" style="padding-bottom: 0; margin-bottom: -35px;">
+      <div class="container">
+        <div class="row justify-content-center align-items-center h-100">
+          <div class="col-lg-8 wow fadeInLeft text-center" style="margin-top: 5rem;">
+            <h2 class="title-section">Welcome, <%= counselor.firstName %>!</h2>
+            <p class="text-lg">Manage your counseling sessions and appointments below:</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-section" style="padding-top: 30px;">
+      <div class="container">
+        <div class="row justify-content-center align-items-center h-100">
+          <div class="col-lg-8 wow fadeInLeft text-center">
+            <h3>Set Available Time Slots</h3>
+            <form action="/counselor/set-availability" method="post">
+              <label for="date">Date:</label>
+              <input type="date" id="date" name="date" required>
+              <label for="time">Time:</label>
+              <input type="time" id="time" name="time" required>
+              <button type="submit" class="btn btn-primary rounded-pill mt-4">Set Availability</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row justify-content-center mb-5">
+        <div class="col-lg-3 py-3">
+          <h3>dna<span class="text-primary">Me</span></h3>
+          <p><a href="#">support@dna.me</a></p>
+          <div class="sosmed-button mt-4">
+            <a href="#"><span class="mai-logo-facebook-f"></span></a>
+            <a href="#"><span class="mai-logo-instagram"></span></a>
+            <a href="#"><span class="mai-logo-twitter"></span></a>
+          </div>
+        </div>
+        <div class="col-lg-3 py-3">
+          <h5>Quick Links</h5>
+          <ul class="footer-menu">
+            <li><a href="#">How it Works</a></li>
+            <li><a href="#">Security</a></li>
+            <li><a href="#">Resources</a></li>
+            <li><a href="#">Report a Bug</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 py-3">
+          <h5>About Us</h5>
+          <ul class="footer-menu">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Our Teams</a></li>
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="#">News & Press</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 py-3">
+          <h5>Subscribe to our newsletter</h5>
+          <form action="#">
+            <input type="text" class="form-control" placeholder="Email address">
+            <button type="submit" class="btn btn-outline rounded-pill mt-4">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 py-2">
+          <p id="copyright">&copy; 2023 dnaMe</p>
+        </div>
+        <div class="col-sm-6 py-2 text-right">
+          <div class="d-inline-block px-3">
+            <a href="#">Privacy</a>
+          </div>
+          <div class="d-inline-block px-3">
+            <a href="#">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div> <!-- .container -->
+  </footer> <!-- .page-footer -->
+
+  <script src="js/jquery-3.5.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/wow/wow.min.js"></script>
+  <script src="vendor/owl-carousel/js/owl.carousel.min.js"></script>
+  <script src="vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/profile.js"></script>
+
+</body>
+</html>
