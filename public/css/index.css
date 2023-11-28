@@ -4,8 +4,12 @@ body {
   padding-right: 0 !important;
 }
 
-#loginModal, #signupModal {
+#loginModal {
   margin-top: 100px;
+}
+
+#signupModal {
+  margin-top: 50px;
 }
 
 .mb-n6 {
