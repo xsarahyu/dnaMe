@@ -9,10 +9,11 @@ exports.getProfile = (req, res) => {
     lastName: req.user.lastName,
     email: req.user.email
   }
-  res.render('profile', {
-    title: 'Profile',
-    user: userData // Pass user data to view
-  })
+  if (req.user.role === 'user') {
+    res.render('profile-user', { user: userData });
+  } else if (req.user.role === 'counselor') {
+    res.render('profile-counselor', { counselor: userData });
+  }
 }
 
 exports.getEditProfile = (req, res) => {
