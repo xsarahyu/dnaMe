@@ -1,5 +1,7 @@
 // controllers/analysisController.js
 
+const AnalysisResults = require('../models/AnalysisResults')
+
 module.exports = {
   analyze: async (req, res) => {
     try {
@@ -18,30 +20,53 @@ module.exports = {
         return 'Not found'
       }
 
-      const name = req.user.firstName
+      let APOE, risk, error
       function analyzeAlzheimersRisk(rs429358Genotype, rs7412Genotype) {
         if (rs429358Genotype === 'TT' && rs7412Genotype === 'TT') {
-          return `${name}, your APOE genotype is ε2/ε2. You have lower risk than normal of developing Alzheimer\'s disease.`
+          APOE = 'ε2/ε2'
+          risk = 'lower risk than normal'
         } else if (rs429358Genotype === 'TT' && rs7412Genotype === 'CT') {
-          return `${name}, your APOE genotype is ε2/ε3. You have lower risk than normal of developing Alzheimer\'s disease.`
+          APOE = 'ε2/ε3'
+          risk = 'lower risk than normal'
         } else if (rs429358Genotype === 'CT' && rs7412Genotype === 'CT') {
-          return `${name}, your APOE genotype is ε2/ε4. You have slightly higher risk than normal of developing Alzheimer\'s disease.`
+          APOE = 'ε2/ε4'
+          risk = 'slightly higher risk than normal'
         } else if (rs429358Genotype === 'TT' && rs7412Genotype === 'CC') {
-          return `${name}, your APOE genotype is ε3/ε3. You have normal risk of developing Alzheimer\'s disease.`
+          APOE = 'ε3/ε3'
+          risk = 'normal risk'
         } else if (rs429358Genotype === 'CT' && rs7412Genotype === 'CC') {
-          return `${name}, your APOE genotype is ε3/ε4. You have higher risk than normal of developing Alzheimer\'s disease.`
+          APOE = 'ε3/ε4'
+          risk = 'higher risk than normal'
         } else if (rs429358Genotype === 'CC' && rs7412Genotype === 'CC') {
-          return `${name}, your APOE genotype is ε4/ε4. You have high risk of developing Alzheimer\'s disease.`
+          APOE = 'ε4/ε4'
+          risk = 'high risk'
         } else {
-          return 'Invalid genotypes'
+          error = 'there was an issue with your raw DNA file. Your APOE type and risk could not be ascertained.'
         }
+        return { APOE, risk, error }
       }
 
+      const firstName = req.user.firstName
+      const lastName = req.user.lastName
+      const userID = req.user._id
       const rs429358Genotype = getGenotype('rs429358')
       const rs7412Genotype = getGenotype('rs7412')
       const analysis = analyzeAlzheimersRisk(rs429358Genotype, rs7412Genotype)
 
-      res.render('analysis', { analysis })
+      // Update view
+      res.render('analysis', { firstName, analysis })
+
+      // Save data to DB
+      await AnalysisResults.create({
+        firstName,
+        lastName,
+        userID,
+        rs429358Genotype,
+        rs7412Genotype,
+        APOE: analysis.APOE,
+        risk: analysis.risk,
+        error: analysis.error || 'none'
+      })
 
     } catch (error) {
       console.error(error)
