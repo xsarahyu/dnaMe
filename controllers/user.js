@@ -9,9 +9,9 @@ exports.getHome = (req, res) => {
     email: req.user.email
   }
   if (req.user.role === 'user') {
-    res.render('home-user', { user: userData });
+    res.render('home-user.ejs', { user: userData })
   } else if (req.user.role === 'counselor') {
-    res.render('home-counselor', { counselor: userData });
+    res.render('home-counselor.ejs', { counselor: userData })
   }
 }
 

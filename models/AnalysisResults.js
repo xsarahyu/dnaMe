@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const AnalysisResultsSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
-  userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  email: { type: String, unique: true },
   rs429358Genotype: String,
   rs7412Genotype: String,
   APOE: String,

@@ -48,25 +48,25 @@ module.exports = {
 
       const firstName = req.user.firstName
       const lastName = req.user.lastName
-      const userID = req.user._id
+      const email = req.user.email
       const rs429358Genotype = getGenotype('rs429358')
       const rs7412Genotype = getGenotype('rs7412')
       const analysis = analyzeAlzheimersRisk(rs429358Genotype, rs7412Genotype)
-
-      // Update view
-      res.render('analysis', { firstName, analysis })
 
       // Save data to DB
       await AnalysisResults.create({
         firstName,
         lastName,
-        userID,
+        email,
         rs429358Genotype,
         rs7412Genotype,
         APOE: analysis.APOE,
         risk: analysis.risk,
         error: analysis.error || 'none'
       })
+
+      // Update view
+      res.render('analysis.ejs', { firstName, analysis })
 
     } catch (error) {
       console.error(error)

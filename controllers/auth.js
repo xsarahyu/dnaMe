@@ -8,7 +8,7 @@ exports.getLogin = (req, res) => {
   if (req.user) {
     return res.redirect('/home')
   }
-  res.render('login', { title: 'Login' })
+  res.render('login.ejs')
 }
 
 exports.postLogin = (req, res, next) => {
@@ -60,7 +60,7 @@ exports.getSignup = (req, res) => {
   if (req.user) {
     return res.redirect('/home')
   }
-  res.render('signup', { title: 'Create Account' })
+  res.render('signup.ejs')
 }
 
 exports.postSignup = (req, res, next) => {
@@ -82,7 +82,7 @@ exports.postSignup = (req, res, next) => {
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false
   })
-  
+
   const user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
