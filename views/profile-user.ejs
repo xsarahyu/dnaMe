@@ -59,94 +59,107 @@
   </header>
 
   <main>
-    <div class="container" style="margin-top: 9rem;">
-      <div class="col-12">
-        <div class="my-5">
-          <h3><%= user.firstName %>'s Profile</h3>
-          <hr>
-        </div>
-      </div>
-      <div class="row mb-5 gx-5">
-
-        <!-- Contact information -->
-        <div class="col-12 col-md-6 mb-5 mb-md-0">
-          <div class="bg-secondary-soft px-4 py-5 rounded">
-            <div class="row g-3">
-              <h4 class="mb-4 mt-0">Contact Information</h4>
-              <!-- First name -->
-              <div class="col-md-6">
-                <label class="form-label">First name</label>
-                <input type="text" class="form-control" aria-label="First name" value="<%= user.firstName %>">
-              </div>
-              <!-- Last name -->
-              <div class="col-md-6">
-                <label class="form-label">Last name</label>
-                <input type="text" class="form-control" aria-label="Last name" value="<%= user.lastName %>">
-              </div>
-              <!-- Email address -->
-              <div class="col-md-12">
-                <label for="inputEmail4" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="inputEmail4" value="<%= user.email %>">
-              </div>
-            </div> <!-- Row END -->
+    <div class="container" style="margin-top: 7rem;">
+      <div class="row">
+        <div class="col-12">
+          <div class="my-5">
+            <h3><%= user.firstName %>'s Profile</h3>
+            <hr>
           </div>
         </div>
-  
-        <!-- Change password -->
-        <div class="col-12 col-md-6">
-          <div class="bg-secondary-soft px-4 py-5 rounded">
-            <div class="row g-3">
-              <h4 class="mb-4 mt-0">Change Password</h4>
-              <!-- Old password -->
-              <div class="col-md-12">
-                <label for="exampleInputPassword3" class="form-label">Old password</label>
-                <input type="password" class="form-control" id="exampleInputPassword3">
-              </div>
-              <!-- New password -->
-              <div class="col-md-6">
-                <label for="exampleInputPassword1" class="form-label">New password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
-              </div>
-              <!-- Confirm new password -->
-              <div class="col-md-6">
-                <label for="exampleInputPassword2" class="form-label">Confirm new password</label>
-                <input type="password" class="form-control" id="exampleInputPassword2">
-              </div>
 
+        <!-- Form START -->
+        <form class="file-upload">
+          <div class="row mb-5 gx-5">
+            <!-- Contact information -->
+            <div class="col-12 col-md-6 mb-5 mb-md-0">
+              <div class="bg-secondary-soft px-4 py-5 rounded">
+                <div class="row g-3">
+                  <h4 class="mb-4 mt-0">Contact Information</h4>
+                  <!-- First name -->
+                  <div class="col-md-6">
+                    <label class="form-label">First name</label>
+                    <input type="text" class="form-control" aria-label="First name" value="<%= user.firstName %>">
+                  </div>
+                  <!-- Last name -->
+                  <div class="col-md-6">
+                    <label class="form-label">Last name</label>
+                    <input type="text" class="form-control" aria-label="Last name" value="<%= user.lastName %>">
+                  </div>
+                  <!-- Email address -->
+                  <div class="col-md-12">
+                    <label for="inputEmail4" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="inputEmail4" value="<%= user.email %>">
+                  </div>
+                </div> <!-- Row END -->
+              </div>
             </div>
-          </div>
-        </div>
-        
-        <!-- Analysis results -->
-        <div class="col-12 col-md-6" style="margin-top: 2rem;">
-          <div class="bg-secondary-soft px-4 py-5 rounded">
-            <div class="row g-3">
-              <h4 class="mb-4 mt-0">Analysis Results</h4>
-              <!-- rs429358 genotype -->
-              <div class="col-md-6">
-                <label class="form-label">rs429358 genotype</label>
-                <input type="text" class="form-control" aria-label="Facebook" value="<%= user.rs429358Genotype %>" disabled>
+  
+            <!-- Change password -->
+            <div class="col-12 col-md-6">
+              <div class="bg-secondary-soft px-4 py-5 rounded">
+                <div class="row g-3">
+                  <h4 class="mb-4 mt-0">Change Password</h4>
+                  <!-- Old password -->
+                  <div class="col-md-12">
+                    <label for="exampleInputPassword3" class="form-label">Old password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword3">
+                  </div>
+                  <!-- New password -->
+                  <div class="col-md-6">
+                    <label for="exampleInputPassword1" class="form-label">New password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1">
+                  </div>
+                  <!-- Confirm new password -->
+                  <div class="col-md-6">
+                    <label for="exampleInputPassword2" class="form-label">Confirm new password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword2">
+                  </div>
+  
+                </div>
               </div>
-              <!-- rs7412 genotype -->
-              <div class="col-md-6">
-                <label class="form-label">rs7412 genotype</label>
-                <input type="text" class="form-control" aria-label="Twitter" value="<%= user.rs7412Genotype %>" disabled>
+            </div>
+  
+            <!-- Analysis results -->
+            <div class="col-12 col-md-6" style="margin-top: 2rem;">
+              <div class="bg-secondary-soft px-4 py-5 rounded">
+                <div class="row g-3">
+                  <h4 class="mb-4 mt-0">Analysis Results</h4>
+                  <!-- rs429358 genotype -->
+                  <div class="col-md-6">
+                    <label class="form-label">rs429358 genotype</label>
+                    <input type="text" class="form-control" aria-label="Facebook" value="<%= user.rs429358Genotype %>"
+                      disabled>
+                  </div>
+                  <!-- rs7412 genotype -->
+                  <div class="col-md-6">
+                    <label class="form-label">rs7412 genotype</label>
+                    <input type="text" class="form-control" aria-label="Twitter" value="<%= user.rs7412Genotype %>"
+                      disabled>
+                  </div>
+                  <!-- APOE alleles -->
+                  <div class="col-md-6">
+                    <label class="form-label">APOE alleles</label>
+                    <input type="text" class="form-control" aria-label="Twitter" value="<%= user.APOE %>" disabled>
+                  </div>
+                  <!-- Risk -->
+                  <div class="col-md-6">
+                    <label class="form-label">Risk</label>
+                    <input type="text" class="form-control" aria-label="Twitter" value="<%= user.risk %>" disabled>
+                  </div>
+                </div> <!-- Row END -->
               </div>
-              <!-- APOE alleles -->
-              <div class="col-md-6">
-                <label class="form-label">APOE alleles</label>
-                <input type="text" class="form-control" aria-label="Twitter" value="<%= user.APOE %>" disabled>
-              </div>
-              <!-- Risk -->
-              <div class="col-md-6">
-                <label class="form-label">Risk</label>
-                <input type="text" class="form-control" aria-label="Twitter" value="<%= user.risk %>" disabled>
-              </div>
-            </div> <!-- Row END -->
-          </div>
-        </div>
+            </div>
+          </div> <!-- Row END -->
 
-      </div> <!-- Row END -->
+          <!-- Button -->
+          <div class="gap-3 d-md-flex justify-content-md-end text-center" style="margin-bottom: 3rem;">
+            <button type="button" class="btn btn-danger btn-lg">Delete profile</button>
+            <button type="button" class="btn btn-primary btn-lg">Update profile</button>
+          </div>
+        </form> <!-- Form END -->
+      </div>
+    </div>
   </main>
 
   <footer class="page-footer">
