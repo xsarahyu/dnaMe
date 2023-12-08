@@ -4,6 +4,7 @@ const counselingController = require('../controllers/counseling')
 
 // Counselor routes
 router.post('/schedule', counselingController.generateAppointments)
+router.get('/booked-appointments', counselingController.getBookedAppointments)
 
 // User routes
 router.get('/', counselingController.getCounselingPage)
