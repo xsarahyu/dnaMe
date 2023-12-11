@@ -39,10 +39,10 @@ function handleButtonClick(buttonID, modalID) {
 handleButtonClick('loginButton', '#loginModal')
 handleButtonClick('signupButton', '#signupModal')
 
-// AJAX form submission - Prevents redirect to separate /signup or /login page
+// AJAX form submission - Prevent redirect to separate /signup or /login page
 function handleFormSubmission(formID, modalID) {
-  $(document).on('submit', formID, function (e) {
-    e.preventDefault() // Prevent default form submission
+  $(document).on('submit', formID, function(e) {
+    e.preventDefault()
 
     $.ajax({
       type: 'POST',

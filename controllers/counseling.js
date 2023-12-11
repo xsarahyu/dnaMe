@@ -5,12 +5,6 @@ module.exports = {
     try {
       const counselorID = req.user._id
       const availability = req.body.availability
-      
-      // Troubleshooting type error
-      console.log('Req body:', req.body)
-      if (!availability) {
-        return res.status(400).json({ message: 'Invalid request: Missing availability data' })
-      }
 
       // Remove existing availability for counselor
       await CounselorAvailability.deleteOne({ counselorID: counselorID })

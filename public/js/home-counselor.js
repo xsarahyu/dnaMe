@@ -1,6 +1,7 @@
 document.querySelector('#saveAvailabilityBtn').addEventListener('click', saveAvailability)
 
-function saveAvailability() {
+function saveAvailability(e) {
+  e.preventDefault()
   const availability = {
     Sunday: { start: document.querySelector('#sunStart').value, end: document.querySelector('#sunEnd').value },
     Monday: { start: document.querySelector('#monStart').value, end: document.querySelector('#monEnd').value },
