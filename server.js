@@ -12,6 +12,7 @@ const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 const analysisRoutes = require('./routes/analysis')
 const profileRoutes = require('./routes/profile')
+const counselingRoutes = require('./routes/counseling')
 
 // Use .env file in config folder
 require('dotenv').config({ path: './config/.env' })
@@ -44,7 +45,7 @@ app.use(
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 )
 
@@ -59,6 +60,7 @@ app.use('/', mainRoutes)
 app.use('/home', mainRoutes)
 app.use('/profile', profileRoutes)
 app.use('/analysis', analysisRoutes)
+app.use('/counselor', counselingRoutes)
 
 app.listen(process.env.PORT, () => {
   console.log('Server is running')
