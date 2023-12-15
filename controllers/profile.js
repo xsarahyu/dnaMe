@@ -5,7 +5,7 @@ const Appointment = require('../models/Appointment')
 
 exports.getProfile = async (req, res) => {
   try {
-    // Fetch user data from database
+    // Fetch user data from request
     const user = {
       firstName: req.user.firstName,
       lastName: req.user.lastName,

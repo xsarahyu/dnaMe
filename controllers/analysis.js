@@ -48,7 +48,7 @@ module.exports = {
         }
         return { APOE, risk, error }
       }
-      
+
       // Call functions and store results in variables
       const rs429358Genotype = getGenotype('rs429358')
       const rs7412Genotype = getGenotype('rs7412')
@@ -68,10 +68,8 @@ module.exports = {
         error: analysisResults.error || 'N/A'
       }
 
-      // Save data to DB
-      await Analysis.create({
-        user, analysis
-      })
+      // Save data to database
+      await Analysis.create({ user, analysis })
 
       // Update view
       res.render('analysis.ejs', { user, analysis })

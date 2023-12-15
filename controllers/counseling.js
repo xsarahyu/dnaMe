@@ -59,7 +59,6 @@ module.exports = {
         startDate.setDate(startDate.getDate() + 1)
       }
       
-      console.log('Appointments saved successfully')
       res.status(200).json({ message: 'Appointments saved successfully' })
 
     } catch (error) {
@@ -75,6 +74,7 @@ module.exports = {
           booked: true,
           'counselor.email': req.user.email
         })
+
         res.json(appointments)
         
       } catch (error) {
@@ -115,7 +115,7 @@ module.exports = {
     }
   },
 
-  // Book appointment and update its details
+  // Book appointment and update its details in database
   bookAppointment: async (req, res) => {
     try {
       const user = {
@@ -125,9 +125,8 @@ module.exports = {
         email: req.user.email
       }
 
+      // Fetch appointment from database
       const appointmentID = req.params.appointmentID
-      
-      // Find appointment
       const appointment = await Appointment.findById(appointmentID)
 
       // Update appointment details
@@ -141,6 +140,7 @@ module.exports = {
         }
       })
 
+      // Save appointment details
       await appointment.save()
 
       res.status(200).json(appointment)

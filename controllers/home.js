@@ -10,7 +10,7 @@ exports.getHome = (req, res) => {
     lastName: req.user.lastName,
     email: req.user.email
   }
-  
+
   if (req.user.role === 'user') {
     res.render('home/user.ejs', { user })
   } else if (req.user.role === 'counselor') {
