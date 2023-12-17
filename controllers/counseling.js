@@ -86,7 +86,7 @@ module.exports = {
   // ---------- USER FUNCTION(S) ---------- //
   
   // Render counseling.ejs
-  getCounseling: async (req, res) => {
+  getCounseling: (req, res) => {
     try {
       const user = {
         ID: req.user._id,
