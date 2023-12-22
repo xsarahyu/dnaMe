@@ -7,7 +7,7 @@ router.post('/schedule', counselingController.generateAppointments)
 router.get('/booked-appointments', counselingController.getBookedAppointments)
 
 // User routes
-router.get('/', counselingController.getCounselingPage)
+router.get('/', counselingController.getCounseling)
 router.get('/available-appointments', counselingController.getAvailableAppointments)
 router.put('/book-appointment/:appointmentID', counselingController.bookAppointment)
 
