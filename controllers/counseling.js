@@ -70,7 +70,7 @@ module.exports = {
   // Send booked appointments to calendar on home/counselor.ejs
   getBookedAppointments: async (req, res) => {
     try {
-      const appointment = await Appointment.find({
+      const appointments = await Appointment.find({
         'counselor.email': req.user.email,
         booked: true
       })
