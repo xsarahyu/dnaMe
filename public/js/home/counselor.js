@@ -18,7 +18,7 @@ function getBookedAppointments(info, successCallback, failureCallback) {
   .then(data => {
     const appointments = data.map(appointment => ({
       id: appointment._id,
-      title: 'Booked',
+      title: `${appointment.user.lastName}, ${appointment.user.firstName}`,
       start: appointment.start,
       end: appointment.end,
       booked: appointment.booked,
