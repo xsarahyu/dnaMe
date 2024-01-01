@@ -51,7 +51,6 @@ function handleFormSubmission(formID, modalID) {
       url: $(this).attr('action'),
       data: $(this).serialize(),
       success: function (response) {
-        console.log('Form submitted successfully')
         $(modalID).modal('hide') // Close modal upon successful submission
       },
       error: function(error) {
