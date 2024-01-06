@@ -71,7 +71,7 @@
                   <h4 class="mb-4 mt-0">Appointments</h4>
                   <% if (appointment && Object.values(appointment).length > 0) { %>
                     <% appointment.forEach(i => { %>
-                      <span>
+                      <li>
                         <%= (function formatDate(date) {
                           const options = {
                             weekday: 'long',
@@ -83,8 +83,8 @@
                             hour12: true }
                           return date.toLocaleDateString('en-US', options)
                         })(i.start) %>
-                        EST
-                      </span>
+                        EST &mdash; <%= i.counselor.lastName %>, <%= i.counselor.firstName %>
+                      </li>
                     <% }) %>
                   <% } else { %>
                     <span>No appointments yet! To book one, navigate to the dropdown and select 'Genetic Counseling.'</span>
