@@ -55,6 +55,7 @@ module.exports = {
       const analysisResults = getAlzheimersRisk(rs429358Genotype, rs7412Genotype)
 
       const user = {
+        ID: req.user._id,
         firstName: req.user.firstName,
         lastName: req.user.lastName,
         email: req.user.email
