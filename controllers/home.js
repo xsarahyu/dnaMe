@@ -1,19 +1,19 @@
 // controllers/homeController.js
 
-exports.getIndex = (req, res) => {
-  res.render('index.ejs')
-}
+module.exports = {
+  getIndex(req, res) {
+    res.render('index.ejs')
+  },
 
-exports.getHome = (req, res) => {
-  const user = {
-    firstName: req.user.firstName,
-    lastName: req.user.lastName,
-    email: req.user.email
-  }
+  getHome(req, res) {
+    const user = {
+      firstName: req.user.firstName
+    }
 
-  if (req.user.role === 'user') {
-    res.render('home/user.ejs', { user })
-  } else if (req.user.role === 'counselor') {
-    res.render('home/counselor.ejs', { counselor: user })
+    if (req.user.role === 'user') {
+      res.render('home/user.ejs', { user })
+    } else if (req.user.role === 'counselor') {
+      res.render('home/counselor.ejs', { counselor: user })
+    }
   }
 }
