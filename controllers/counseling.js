@@ -48,6 +48,7 @@ module.exports = {
               end: new Date(startTime.getTime() + 60 * 60 * 1000)
             }
 
+            // Save appointments to database
             await Appointment.create(appointment)
 
             // Move to next hour
@@ -89,10 +90,7 @@ module.exports = {
   getCounseling: (req, res) => {
     try {
       const user = {
-        ID: req.user._id,
-        firstName: req.user.firstName,
-        lastName: req.user.lastName,
-        email: req.user.email
+        firstName: req.user.firstName
       }
 
       res.render('counseling.ejs', { user })
@@ -129,7 +127,7 @@ module.exports = {
       const appointmentID = req.params.appointmentID
       const appointment = await Appointment.findById(appointmentID)
 
-      // Update appointment details
+      // Update appointment details in database
       appointment.set({
         booked: true,
         user: {
@@ -140,7 +138,7 @@ module.exports = {
         }
       })
 
-      // Save appointment details
+      // Save appointment details in database
       await appointment.save()
 
       res.status(200).json(appointment)

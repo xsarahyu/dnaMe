@@ -10,7 +10,6 @@ function updatePassword(e) {
     confirmNew: document.querySelector('#confirm-new-password').value
   }
 
-  // Send data to server
   fetch('/settings/update-password', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

@@ -11,7 +11,6 @@ function saveSchedule(e) {
     Friday: { start: document.querySelector('#friStart').value, end: document.querySelector('#friEnd').value }
   }
 
-  // Send data to server
   fetch('/counseling/schedule', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

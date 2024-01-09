@@ -57,6 +57,7 @@ function handleEventClick(info) {
           hour: 'numeric', minute: '2-digit', hour12: true
         })
 
+        // Success message
         alert(`Appointment successfully booked!
           \nDate: ${date}
           \nTime: ${startTime} to ${endTime}`)
