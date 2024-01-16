@@ -71,7 +71,6 @@ exports.postSignup = (req, res, next) => {
     validationErrors.push({ msg: 'Password must be at least 8 characters long.' })
   if (req.body.password !== req.body.confirmPassword)
     validationErrors.push({ msg: 'Passwords do not match.' })
-  // Ensure that req.body.role has a value (user or counselor)
   if (!req.body.role || !['user', 'counselor'].includes(req.body.role))
     validationErrors.push({ msg: 'Please select an account type.' })
   if (validationErrors.length) {
