@@ -1,9 +1,14 @@
 const CounselorAvailability = require('../models/CounselorAvailability')
 
 module.exports = {
+
+  // Counselor controllers
   setAvailability: async (req, res) => {
     try {
       const counselorID = req.user._id
+      const counselorFirstName = req.user.firstName
+      const counselorLastName = req.user.lastName
+      const counselorEmail = req.user.email
       const availability = req.body.availability
 
       // Remove existing availability for counselor
@@ -12,6 +17,9 @@ module.exports = {
       // Save new availability
       await CounselorAvailability.create({
         counselorID,
+        counselorFirstName,
+        counselorLastName,
+        counselorEmail,
         sunStart: availability.Sunday.start,
         sunEnd: availability.Sunday.end,
         monStart: availability.Monday.start,

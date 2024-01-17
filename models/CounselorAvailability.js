@@ -2,6 +2,9 @@ const mongoose = require('mongoose')
 
 const CounselorAvailabilitySchema = new mongoose.Schema({
   counselorID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  counselorFirstName: String,
+  counselorLastName: String,
+  counselorEmail: String,
   sunStart: String,
   sunEnd: String,
   monStart: String,
