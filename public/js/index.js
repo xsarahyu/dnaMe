@@ -1,13 +1,15 @@
 // Show login modal upon clicking Log In
 $(document).ready(function () {
-  $('#loginButton').click(function () {
+  $('#loginButton').click(function (e) {
+    e.preventDefault() // Prevent default anchor behavior of 'URL/#'
     $('#loginModal').modal('show')
   })
 })
 
 // Show signup modal upon clicking Sign Up
 $(document).ready(function () {
-  $('#signupButton').click(function () {
+  $('#signupButton').click(function (e) {
+    e.preventDefault() // Prevent default anchor behavior of 'URL/#'
     $('#signupModal').modal('show')
   })
 })
