@@ -38,6 +38,30 @@ module.exports = {
       console.log('Availability updated')
     } catch (error) {
       console.log(error)
+      res.status(500).send('Internal Server Error')
+    }
+  },
+
+  // User controllers
+  getCounseling: async (req, res) => {
+    try {
+      const userData = {
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        email: req.user.email,
+      }
+
+      // Get counselor availability data
+      const counselorAvailability = await CounselorAvailability.find()
+
+      // Pass counselor availability data to counseling.ejs
+      res.render('counseling.ejs', {
+        user: userData,
+        counselorAvailability
+      })
+    } catch (error) {
+      console.log(error)
+      res.status(500).send('Internal Server Error')
     }
   }
 }

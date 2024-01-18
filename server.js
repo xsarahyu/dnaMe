@@ -7,7 +7,6 @@ const MongoStore = require('connect-mongo')(session)
 const methodOverride = require('method-override')
 const flash = require('express-flash')
 const logger = require('morgan')
-
 const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 const analysisRoutes = require('./routes/analysis')
@@ -58,9 +57,11 @@ app.use(flash())
 
 app.use('/', mainRoutes)
 app.use('/home', mainRoutes)
+
 app.use('/profile', profileRoutes)
 app.use('/analysis', analysisRoutes)
-app.use('/counselor', counselingRoutes)
+
+app.use('/counseling', counselingRoutes)
 
 app.listen(process.env.PORT, () => {
   console.log('Server is running')

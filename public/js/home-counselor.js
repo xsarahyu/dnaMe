@@ -13,7 +13,7 @@ function saveAvailability(e) {
   }
   
   // Send data to server
-  fetch('/counselor/set-availability', {
+  fetch('/counseling/set-availability', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ availability })
