@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const CounselorAvailabilitySchema = new mongoose.Schema({
-  counselorID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  counselorID: String,
   counselorFirstName: String,
   counselorLastName: String,
   counselorEmail: String,
