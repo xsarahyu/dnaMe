@@ -1,24 +1,42 @@
 const mongoose = require('mongoose')
 
 const CounselorAvailabilitySchema = new mongoose.Schema({
-  counselorID: String,
-  counselorFirstName: String,
-  counselorLastName: String,
-  counselorEmail: String,
-  sunStart: String,
-  sunEnd: String,
-  monStart: String,
-  monEnd: String,
-  tueStart: String,
-  tueEnd: String,
-  wedStart: String,
-  wedEnd: String,
-  thuStart: String,
-  thuEnd: String,
-  friStart: String,
-  friEnd: String,
-  satStart: String,
-  satEnd: String
+  counselorData: {
+    ID: String,
+    firstName: String,
+    lastName: String,
+    email: String
+  },
+  availability: {
+    Sunday: {
+      start: String,
+      end: String
+    },
+    Monday: {
+      start: String,
+      end: String
+    },
+    Tuesday: {
+      start: String,
+      end: String
+    },
+    Wednesday: {
+      start: String,
+      end: String
+    },
+    Thursday: {
+      start: String,
+      end: String
+    },
+    Friday: {
+      start: String,
+      end: String
+    },
+    Saturday: {
+      start: String,
+      end: String
+    }
+  }
 })
 
 module.exports = mongoose.model('CounselorAvailability', CounselorAvailabilitySchema)

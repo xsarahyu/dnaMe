@@ -2,6 +2,7 @@ document.querySelector('#saveAvailabilityBtn').addEventListener('click', saveAva
 
 function saveAvailability(e) {
   e.preventDefault()
+
   const availability = {
     Sunday: { start: document.querySelector('#sunStart').value, end: document.querySelector('#sunEnd').value },
     Monday: { start: document.querySelector('#monStart').value, end: document.querySelector('#monEnd').value },
@@ -20,7 +21,7 @@ function saveAvailability(e) {
   })
     .then(response => response.json())
     .then(data => {
-      alert('Availability saved successfully!')
+      alert('Availability updated successfully!')
     })
     .catch(error => {
       console.error('Error saving availability:', error)
