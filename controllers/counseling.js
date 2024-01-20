@@ -1,9 +1,9 @@
-const CounselorAvailability = require('../models/CounselorAvailability')
+const CounselorSchedule = require('../models/CounselorSchedule')
 
 module.exports = {
 
   // Counselor controllers
-  setAvailability: async (req, res) => {
+  setSchedule: async (req, res) => {
     try {
       const counselorData = {
         ID: req.user._id,
@@ -12,21 +12,21 @@ module.exports = {
         email: req.user.email
       }
 
-      const availability = req.body.availability
+      const schedule = req.body.schedule
 
-      // Remove existing availability for counselor
-      await CounselorAvailability.deleteOne({
+      // Remove existing schedule for counselor
+      await CounselorSchedule.deleteOne({
         'counselorData.ID': counselorData.ID
       })
 
-      // Save new availability
-      await CounselorAvailability.create({ 
+      // Save new schedule
+      await CounselorSchedule.create({ 
         counselorData,
-        availability
+        schedule
       })
 
-      console.log('Availability updated')
-      res.json({ message: 'Availability updated successfully!' })
+      console.log('Schedule saved')
+      res.json({ message: 'Schedule saved successfully!' })
 
     } catch (error) {
       console.log(error)
@@ -44,13 +44,13 @@ module.exports = {
         email: req.user.email
       }
 
-      // Get counselor availability data
-      const counselorAvailability = await CounselorAvailability.find()
+      // Get counselor schedule data
+      const counselorSchedule = await CounselorSchedule.find()
 
-      // Pass counselor availability data to counseling.ejs
+      // Pass counselor schedule data to counseling.ejs
       res.render('counseling.ejs', {
         user: userData,
-        counselorAvailability
+        counselorSchedule
       })
 
     } catch (error) {
