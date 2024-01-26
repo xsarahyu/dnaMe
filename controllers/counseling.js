@@ -17,12 +17,16 @@ module.exports = {
       // Remove existing appointments for counselor
       await Appointment.deleteMany({ 'counselor.ID': counselorData.ID })
       
-      const startDate = new Date('2024-01-01') // Start from beginning of 2024
+      // Start from beginning of 2024
+      const startDate = new Date('2024-01-01')
 
-      while (startDate.getFullYear() <= 2024) { // Iterate over each day, until end of year
-        const day = startDate.toLocaleDateString('en-US', { weekday: 'long' }) // Get day name
+      // Iterate over each day, until end of year
+      while (startDate.getFullYear() <= 2024) {
+        // Get day name
+        const day = startDate.toLocaleDateString('en-US', { weekday: 'long' }) 
 
-        if (schedule[day]) { // Check if schedule exists for current day (no schedule for weekends)
+        // Check if schedule exists for current day (no schedule for weekends)
+        if (schedule[day]) { 
           const startTime = new Date(startDate)
           const endTime = new Date(startDate)
 
@@ -36,23 +40,26 @@ module.exports = {
           endTime.setMinutes(endMinute)
 
           while (startTime < endTime) {
+            // Make hour-long appointments
             const appointment = {
               counselor: counselorData,
               start: new Date(startTime),
-              end: new Date(startTime.getTime() + 60 * 60 * 1000) // Hour-long appointments
+              end: new Date(startTime.getTime() + 60 * 60 * 1000)
             }
 
             await Appointment.create(appointment)
 
-            startTime.setTime(startTime.getTime() + 60 * 60 * 1000) // Move to next hour
+            // Move to next hour
+            startTime.setTime(startTime.getTime() + 60 * 60 * 1000)
           }
         }
         
-        startDate.setDate(startDate.getDate() + 1) // Move to next day
+        // Move to next day
+        startDate.setDate(startDate.getDate() + 1)
       }
       
-      console.log('Appointments saved successfully!')
-      res.status(200).json({ message: 'Schedule saved successfully!' })
+      console.log('Appointments saved successfully')
+      res.status(200).json({ message: 'Appointments saved successfully' })
 
     } catch (error) {
       console.error('Error saving appointments:', error)
@@ -70,17 +77,17 @@ module.exports = {
         email: req.user.email
       }
 
-      // Get counselor schedule data
-      const counselorSchedule = await CounselorSchedule.find()
+      // Get appointments
+      const appointments = await Appointment.find()
 
-      // Pass counselor schedule data to counseling.ejs
+      // Pass appointments data to counseling.ejs
       res.render('counseling.ejs', {
         user: userData,
-        counselorSchedule
+        appointments
       })
 
     } catch (error) {
-      console.log(error)
+      console.error(error)
       res.status(500).send('Internal Server Error')
     }
   }

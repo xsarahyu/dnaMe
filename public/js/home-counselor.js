@@ -22,7 +22,7 @@ function saveSchedule(e) {
       alert(data.message)
     })
     .catch(error => {
-      console.error('Error saving schedule:', error)
-      alert('Error saving schedule. Please try again.')
+      console.error('Error saving appointments:', error)
+      alert('An error occurred. Please try again.')
     })
 }
