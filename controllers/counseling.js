@@ -13,6 +13,9 @@ module.exports = {
       }
 
       const schedule = req.body.schedule
+
+      // Remove existing appointments for counselor
+      await Appointment.deleteMany({ 'counselor.ID': counselorData.ID })
       
       const startDate = new Date('2024-01-01') // Start from beginning of 2024
 
