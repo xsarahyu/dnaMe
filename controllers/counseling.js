@@ -1,9 +1,9 @@
-const CounselorSchedule = require('../models/CounselorSchedule')
+const Appointment = require('../models/Appointment')
 
 module.exports = {
 
-  // Counselor controllers
-  setSchedule: async (req, res) => {
+  // Generate appointments for counselor based on provided schedule
+  generateAppointments: async (req, res) => {
     try {
       const counselorData = {
         ID: req.user._id,
@@ -13,28 +13,51 @@ module.exports = {
       }
 
       const schedule = req.body.schedule
+      
+      const startDate = new Date('2024-01-01') // Start from beginning of 2024
 
-      // Remove existing schedule for counselor
-      await CounselorSchedule.deleteOne({
-        'counselorData.ID': counselorData.ID
-      })
+      while (startDate.getFullYear() <= 2024) { // Iterate over each day, until end of year
+        const day = startDate.toLocaleDateString('en-US', { weekday: 'long' }) // Get day name
 
-      // Save new schedule
-      await CounselorSchedule.create({ 
-        counselorData,
-        schedule
-      })
+        if (schedule[day]) { // Check if schedule exists for current day (no schedule for weekends)
+          const startTime = new Date(startDate)
+          const endTime = new Date(startDate)
 
-      console.log('Schedule saved')
-      res.json({ message: 'Schedule saved successfully!' })
+          const [startHour, startMinute] = schedule[day].start.split(':')
+          const [endHour, endMinute] = schedule[day].end.split(':')
+
+          startTime.setHours(startHour)
+          startTime.setMinutes(startMinute)
+
+          endTime.setHours(endHour)
+          endTime.setMinutes(endMinute)
+
+          while (startTime < endTime) {
+            const appointment = {
+              counselor: counselorData,
+              start: new Date(startTime),
+              end: new Date(startTime.getTime() + 60 * 60 * 1000) // Hour-long appointments
+            }
+
+            await Appointment.create(appointment)
+
+            startTime.setTime(startTime.getTime() + 60 * 60 * 1000) // Move to next hour
+          }
+        }
+        
+        startDate.setDate(startDate.getDate() + 1) // Move to next day
+      }
+      
+      console.log('Appointments saved successfully!')
+      res.status(200).json({ message: 'Schedule saved successfully!' })
 
     } catch (error) {
-      console.log(error)
+      console.error('Error saving appointments:', error)
       res.status(500).send('Internal Server Error')
     }
   },
 
-  // User controllers
+  // User functions
   getCounseling: async (req, res) => {
     try {
       const userData = {

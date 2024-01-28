@@ -90,19 +90,7 @@
         </div>
 
         <div class="scheduler-container">
-          <% counselorSchedule.forEach(counselor => { %>
-            <h4><%= counselor.counselorData.firstName %> <%= counselor.counselorData.lastName %></h4>
-            <ul class="list-unstyled">
-              <% Object.keys(counselor.schedule).forEach(day => { %>
-                <li>
-                  <%= day %>:
-                  <% for (let i=parseInt(counselor.schedule[day].start); i<parseInt(counselor.schedule[day].end); i++) { %>
-                    <span><%= i %> &ndash; <% i+1 %></span>
-                  <% } %>
-                </li>
-              <% }) %>
-            </ul>
-          <% }) %>
+
         </div>
       </div>
     </div>

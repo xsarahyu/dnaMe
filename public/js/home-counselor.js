@@ -12,14 +12,14 @@ function saveSchedule(e) {
   }
   
   // Send data to server
-  fetch('/counseling/set-schedule', {
+  fetch('/counseling/schedule', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ schedule })
   })
     .then(response => response.json())
     .then(data => {
-      alert('Schedule saved successfully!')
+      alert(data.message)
     })
     .catch(error => {
       console.error('Error saving schedule:', error)
