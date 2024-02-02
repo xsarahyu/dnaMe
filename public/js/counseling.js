@@ -1,58 +1,69 @@
-const days = document.querySelector('.days')
-const currentDate = document.querySelector('.month-year')
-const prevNextIcon = document.querySelectorAll('.icons span')
+const calendarEl = document.getElementById('calendar')
 
-// Get new date, current year, and month
-let date = new Date()
-let currYear = date.getFullYear()
-let currMonth = date.getMonth()
+const calendar = new FullCalendar.Calendar(calendarEl, {
+  selectable: true,
+  headerToolbar: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+  },
+  events: getAppointments,
+  eventClick: handleEventClick
+})
 
-// Store full names of all months in an array
-const months = [
-  'January', 'February', 'March', 'April', 'May', 'June', 'July',
-  'August', 'September', 'October', 'November', 'December'
-]
+calendar.render()
 
-const renderCalendar = () => {
-  const firstDayOfMonth = new Date(currYear, currMonth, 1).getDay()
-  const lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate()
-  const lastDayOfMonth = new Date(currYear, currMonth, lastDateOfMonth).getDay()
-  const lastDateOfLastMonth = new Date(currYear, currMonth, 0).getDate()
+function getAppointments(info, successCallback, failureCallback) {
+  fetch('/counseling/get-appointments', { method: 'GET' })
+  .then(response => response.json())
+  .then(data => {
+    const appointments = data.map(appointment => ({
+      id: appointment._id,
+      title: 'Available',
+      start: appointment.start,
+      end: appointment.end,
+      booked: appointment.booked,
+      user: appointment.user
+    }))
 
-  let li = ''
-
-  for (let i = firstDayOfMonth; i > 0; i--) {
-    li += `<li class='inactive'>${lastDateOfLastMonth - i + 1}</li>`
-  }
-
-  for (let i = 1; i <= lastDateOfMonth; i++) {
-    let isToday = i === date.getDate() && currMonth === new Date().getMonth() &&
-      currYear === new Date().getFullYear() ? 'active' : ''
-    li += `<li class='${isToday}'>${i}</li>`
-  }
-
-  for (let i = lastDayOfMonth; i < 6; i++) {
-    li += `<li class='inactive'>${i - lastDayOfMonth + 1}</li>`
-  }
-
-  currentDate.innerText = `${months[currMonth]} ${currYear}`
-  days.innerHTML = li
+    successCallback(appointments)
+  })
+  .catch(error => {
+    console.error('Error getting appointments:', error)
+    failureCallback(error)
+  })
 }
 
-renderCalendar()
+function handleEventClick(info) {
+  const appointmentID = info.event.id
+  const isAvailable = !info.event.extendedProps.booked
 
-prevNextIcon.forEach(icon => {
-  icon.addEventListener('click', () => {
-    currMonth = icon.id === 'left' ? currMonth - 1 : currMonth + 1
+  if (isAvailable && confirm('Do you want to book this appointment?')) {
+    fetch(`/counseling/book-appointment/${appointmentID}`, { method: 'PUT' })
+      .then(response => response.json())
+      .then(data => {
+        // FullCalendar function to update and reload calendar
+        calendar.refetchEvents()
+        
+        // Format date and time for success message
+        const userLocale = navigator.language || 'en-US'
+        const date = new Date(data.start).toLocaleDateString(userLocale, {
+          weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+        })
+        const startTime = new Date(data.start).toLocaleTimeString(userLocale, {
+          hour: 'numeric', minute: '2-digit', hour12: true
+        })
+        const endTime = new Date(data.end).toLocaleTimeString(userLocale, {
+          hour: 'numeric', minute: '2-digit', hour12: true
+        })
 
-    if (currMonth < 0 || currMonth > 11) {
-      date = new Date(currYear, currMonth, new Date().getDate())
-      currYear = date.getFullYear()
-      currMonth = date.getMonth()
-    } else {
-      date = new Date()
-    }
-
-    renderCalendar()
-  })
-})
+        alert(`Appointment successfully booked!
+          \nDate: ${date}
+          \nTime: ${startTime} to ${endTime}`)
+      })
+      .catch(error => {
+        console.error('Error booking appointment:', error)
+        alert('Failed to book appointment. Please try again.')
+      })
+  }
+}

@@ -1,8 +1,11 @@
 const Appointment = require('../models/Appointment')
 
 module.exports = {
+  // ------------------------------------------- //
+  // ---------- COUNSELOR FUNCTION(S) ---------- //
+  // ------------------------------------------- //
 
-  // Generate appointments for counselor based on provided schedule
+  // Generate appointments based on provided schedule
   generateAppointments: async (req, res) => {
     try {
       const counselorData = {
@@ -67,8 +70,12 @@ module.exports = {
     }
   },
 
-  // User functions
-  getCounseling: async (req, res) => {
+  // -------------------------------------- //
+  // ---------- USER FUNCTION(S) ---------- //
+  // -------------------------------------- //
+  
+  // Render counseling.ejs
+  getCounselingPage: async (req, res) => {
     try {
       const userData = {
         ID: req.user._id,
@@ -77,17 +84,54 @@ module.exports = {
         email: req.user.email
       }
 
-      // Get appointments
-      const appointments = await Appointment.find()
-
-      // Pass appointments data to counseling.ejs
-      res.render('counseling.ejs', {
-        user: userData,
-        appointments
-      })
+      res.render('counseling.ejs', { user: userData })
 
     } catch (error) {
-      console.error(error)
+      console.error('Error rendering page:', error)
+      res.status(500).send('Internal Server Error')
+    }
+  },
+
+  // Send available appointments to calendar on counseling.ejs
+  getAppointments: async (req, res) => {
+    try {
+      const appointments = await Appointment.find({ booked: false })
+      res.json(appointments)
+      
+    } catch (error) {
+      console.error('Error getting appointments:', error)
+      res.status(500).send('Internal Server Error')
+    }
+  },
+
+  // Book appointment and update its details
+  bookAppointment: async (req, res) => {
+    try {
+      const userData = {
+        ID: req.user._id,
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        email: req.user.email
+      }
+
+      const appointmentID = req.params.appointmentID
+      
+      // Find appointment
+      const appointment = await Appointment.findById(appointmentID)
+
+      // Update appointment details
+      appointment.booked = true
+      appointment.user.ID = userData.ID
+      appointment.user.firstName = userData.firstName
+      appointment.user.lastName = userData.lastName
+      appointment.user.email = userData.email
+
+      await appointment.save()
+
+      res.status(200).json(appointment)
+      
+    } catch (error) {
+      console.error('Error booking appointment:', error)
       res.status(500).send('Internal Server Error')
     }
   }

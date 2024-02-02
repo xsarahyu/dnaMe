@@ -6,6 +6,8 @@ const counselingController = require('../controllers/counseling')
 router.post('/schedule', counselingController.generateAppointments)
 
 // User routes
-router.get('/', counselingController.getCounseling)
+router.get('/', counselingController.getCounselingPage)
+router.get('/get-appointments', counselingController.getAppointments)
+router.put('/book-appointment/:appointmentID', counselingController.bookAppointment)
 
 module.exports = router
