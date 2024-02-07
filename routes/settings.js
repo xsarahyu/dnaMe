@@ -5,5 +5,6 @@ const { ensureAuth } = require('../middleware/auth')
 
 router.get('/', ensureAuth, settingsController.getSettings)
 router.post('/update-password', ensureAuth, settingsController.updatePassword)
+router.delete('/delete-account', ensureAuth, settingsController.deleteAccount)
 
 module.exports = router

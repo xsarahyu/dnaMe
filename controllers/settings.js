@@ -62,3 +62,14 @@ exports.updatePassword = async (req, res) => {
     res.status(500).json({ message: 'An error occurred. Please try again.' })
   }
 }
+
+exports.deleteAccount = async (req, res) => {
+  try {
+    await User.findOneAndDelete({ email: req.user.email })
+    res.status(200).json({ message: 'Account deleted successfully.' })
+
+  } catch (error) {
+    console.error('Error deleting account:', error)
+    res.status(500).json({ message: 'An error occurred. Please try again.' })
+  }
+}

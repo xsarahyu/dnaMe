@@ -1,4 +1,5 @@
 document.querySelector('#updatePasswordBtn').addEventListener('click', updatePassword)
+document.querySelector('#deleteAccountBtn').addEventListener('click', deleteAccount)
 
 function updatePassword(e) {
   e.preventDefault()
@@ -25,6 +26,27 @@ function updatePassword(e) {
     })
     .catch(error => {
       console.error('Error updating password:', error)
+      alert('An error occurred. Please try again.')
+    })
+}
+
+function deleteAccount(e) {
+  e.preventDefault()
+
+  // Send data to server
+  fetch('/settings/delete-account', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' }
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message === 'Account deleted successfully.') {
+        // Redirect to '/' on success
+        window.location.href = '/';
+      }
+    })
+    .catch(error => {
+      console.error('Error deleting account:', error)
       alert('An error occurred. Please try again.')
     })
 }
