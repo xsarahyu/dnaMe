@@ -30,23 +30,23 @@ function updatePassword(e) {
     })
 }
 
-function deleteAccount(e) {
-  e.preventDefault()
+function deleteAccount() {
+  const confirmation = window.confirm('Are you sure you want to delete your account? This action cannot be undone.')
 
-  // Send data to server
-  fetch('/settings/delete-account', {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' }
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.message === 'Account deleted successfully.') {
-        // Redirect to '/' on success
-        window.location.href = '/';
-      }
+  if (confirmation) {
+    fetch('/settings/delete-account', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
     })
-    .catch(error => {
-      console.error('Error deleting account:', error)
-      alert('An error occurred. Please try again.')
-    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === 'Account deleted successfully.') {
+          window.location.href = '/'
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting account:', error)
+        alert('An error occurred. Please try again.')
+      })
+  }
 }
