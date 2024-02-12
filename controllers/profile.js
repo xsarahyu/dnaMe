@@ -1,21 +1,22 @@
 // controllers/profileController.js
 
 const Analysis = require('../models/Analysis')
+const Appointment = require('../models/Appointment')
 
 exports.getProfile = async (req, res) => {
   try {
+
+    // Fetch user data from database
     const user = {
       firstName: req.user.firstName,
       lastName: req.user.lastName,
       email: req.user.email
     }
 
+    // Fetch analysis data from database
     const analysis = {}
-
-    // Fetch analysis data from DB
     const analysisDB = await Analysis.findOne({ 'user.email': req.user.email })
 
-    // Add analysisDB to analysis object
     if (analysisDB) {
       analysis.rs429358Genotype = analysisDB.analysis.rs429358Genotype
       analysis.rs7412Genotype = analysisDB.analysis.rs7412Genotype
@@ -23,10 +24,14 @@ exports.getProfile = async (req, res) => {
       analysis.risk = analysisDB.analysis.risk
     }
 
+    // Fetch appointment data from database
+    const appointment = await Appointment.find({ 'user.email': req.user.email })
+
+    // Update view
     if (req.user.role === 'user') {
-      res.render('profile-user.ejs', { user, analysis })
+      res.render('profile/user.ejs', { user, analysis, appointment })
     } else if (req.user.role === 'counselor') {
-      res.render('profile-counselor.ejs', { counselor: user })
+      res.render('profile/counselor.ejs', { counselor: user })
     }
 
   } catch (error) {
