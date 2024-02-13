@@ -8,7 +8,7 @@ module.exports = {
   // Generate appointments based on provided schedule
   generateAppointments: async (req, res) => {
     try {
-      const counselorData = {
+      const counselor = {
         ID: req.user._id,
         firstName: req.user.firstName,
         lastName: req.user.lastName,
@@ -18,7 +18,7 @@ module.exports = {
       const schedule = req.body.schedule
 
       // Remove existing appointments for counselor
-      await Appointment.deleteMany({ 'counselor.ID': counselorData.ID })
+      await Appointment.deleteMany({ 'counselor.ID': counselor.ID })
       
       // Start from beginning of 2024
       const startDate = new Date('2024-01-01')
@@ -45,7 +45,7 @@ module.exports = {
           while (startTime < endTime) {
             // Make hour-long appointments
             const appointment = {
-              counselor: counselorData,
+              counselor: counselor,
               start: new Date(startTime),
               end: new Date(startTime.getTime() + 60 * 60 * 1000)
             }
@@ -77,14 +77,14 @@ module.exports = {
   // Render counseling.ejs
   getCounselingPage: async (req, res) => {
     try {
-      const userData = {
+      const user = {
         ID: req.user._id,
         firstName: req.user.firstName,
         lastName: req.user.lastName,
         email: req.user.email
       }
 
-      res.render('counseling.ejs', { user: userData })
+      res.render('counseling.ejs', { user })
 
     } catch (error) {
       console.error('Error rendering page:', error)
@@ -107,7 +107,7 @@ module.exports = {
   // Book appointment and update its details
   bookAppointment: async (req, res) => {
     try {
-      const userData = {
+      const user = {
         ID: req.user._id,
         firstName: req.user.firstName,
         lastName: req.user.lastName,
@@ -120,11 +120,15 @@ module.exports = {
       const appointment = await Appointment.findById(appointmentID)
 
       // Update appointment details
-      appointment.booked = true
-      appointment.user.ID = userData.ID
-      appointment.user.firstName = userData.firstName
-      appointment.user.lastName = userData.lastName
-      appointment.user.email = userData.email
+      appointment.set({
+        booked: true,
+        user: {
+          ID: user.ID,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email
+        }
+      })
 
       await appointment.save()
 

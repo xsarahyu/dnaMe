@@ -3,15 +3,15 @@
 const User = require('../models/User')
 
 exports.getHome = (req, res) => {
-  const userData = {
+  const user = {
     firstName: req.user.firstName,
     lastName: req.user.lastName,
     email: req.user.email
   }
   if (req.user.role === 'user') {
-    res.render('home-user.ejs', { user: userData })
+    res.render('home-user.ejs', { user })
   } else if (req.user.role === 'counselor') {
-    res.render('home-counselor.ejs', { counselor: userData })
+    res.render('home-counselor.ejs', { counselor: user })
   }
 }
 

@@ -1,27 +1,30 @@
 // controllers/analysisController.js
 
-const AnalysisResults = require('../models/AnalysisResults')
+const Analysis = require('../models/Analysis')
 
 module.exports = {
   analyze: async (req, res) => {
     try {
+      // Process and split DNA file into lines
       if (!req.file) return res.status(400).send('No file uploaded!')
       const fileContent = req.file.buffer.toString('utf-8')
       if (!fileContent.trim()) return res.status(400).send('The file is empty!')
       const dataLines = fileContent.split('\n')
 
+      // Function 1: Given rsID, get genotype
       function getGenotype(rsID) {
         for (const row of dataLines) {
           if (row.startsWith(`${rsID}\t`)) {
             const columns = row.split('\t')
-            return columns[3].trim()
+            return genotype = columns[3].trim()
           }
         }
         return 'Not found'
       }
 
+      // Function 2: Given genotype, get APOE gene and Alzheimer's risk
       let APOE, risk, error
-      function analyzeAlzheimersRisk(rs429358Genotype, rs7412Genotype) {
+      function getAlzheimersRisk(rs429358Genotype, rs7412Genotype) {
         if (rs429358Genotype === 'TT' && rs7412Genotype === 'TT') {
           APOE = 'ε2/ε2'
           risk = 'lower risk than normal'
@@ -41,32 +44,37 @@ module.exports = {
           APOE = 'ε4/ε4'
           risk = 'high risk'
         } else {
-          error = 'there was an issue with your raw DNA file. Your APOE type and risk could not be ascertained.'
+          error = 'there was an issue with your raw DNA file. Your APOE type and risk could not be determined.'
         }
         return { APOE, risk, error }
       }
-
-      const firstName = req.user.firstName
-      const lastName = req.user.lastName
-      const email = req.user.email
+      
+      // Call functions and store results in variables
       const rs429358Genotype = getGenotype('rs429358')
       const rs7412Genotype = getGenotype('rs7412')
-      const analysis = analyzeAlzheimersRisk(rs429358Genotype, rs7412Genotype)
+      const analysisResults = getAlzheimersRisk(rs429358Genotype, rs7412Genotype)
+
+      const user = {
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        email: req.user.email
+      }
+
+      const analysis = {
+        rs429358Genotype: rs429358Genotype,
+        rs7412Genotype: rs7412Genotype,
+        APOE: analysisResults.APOE,
+        risk: analysisResults.risk,
+        error: analysisResults.error || 'N/A'
+      }
 
       // Save data to DB
-      await AnalysisResults.create({
-        firstName,
-        lastName,
-        email,
-        rs429358Genotype,
-        rs7412Genotype,
-        APOE: analysis.APOE,
-        risk: analysis.risk,
-        error: analysis.error || 'none'
+      await Analysis.create({
+        user, analysis
       })
 
       // Update view
-      res.render('analysis.ejs', { firstName, analysis })
+      res.render('analysis.ejs', { user, analysis })
 
     } catch (error) {
       console.error(error)

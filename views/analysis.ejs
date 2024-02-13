@@ -25,8 +25,8 @@
           <div class="row justify-content-center align-items-center h-100">
             <div class="col-lg-6 wow fadeInUp">
               <h2 class="text-center">
-                <%= firstName %>,
-                <% if (analysis.error) { %>
+                <%= user.firstName %>,
+                <% if (analysis.error !== 'N/A') { %>
                   <%= analysis.error %>
                 <% } else { %>
                   your APOE genotype is <%= analysis.APOE %>. You are at <%= analysis.risk %> of developing Alzheimer's disease.

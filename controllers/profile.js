@@ -1,32 +1,34 @@
 // controllers/profileController.js
 
-const AnalysisResults = require('../models/AnalysisResults')
+const Analysis = require('../models/Analysis')
 
 exports.getProfile = async (req, res) => {
   try {
-    const userData = {
+    const user = {
       firstName: req.user.firstName,
       lastName: req.user.lastName,
-      email: req.user.email,
+      email: req.user.email
     }
 
-    // Fetch analysis results from DB based on user's email
-    const analysisResults = await AnalysisResults.findOne({ email: req.user.email })
+    const analysis = {}
 
-    // If analysis results found, add it to userData
-    if (analysisResults) {
-      userData.rs429358Genotype = analysisResults.rs429358Genotype
-      userData.rs7412Genotype = analysisResults.rs7412Genotype
-      userData.APOE = analysisResults.APOE
-      userData.risk = analysisResults.risk
+    // Fetch analysis data from DB
+    const analysisDB = await Analysis.findOne({ 'user.email': req.user.email })
+
+    // Add analysisDB to analysis object
+    if (analysisDB) {
+      analysis.rs429358Genotype = analysisDB.analysis.rs429358Genotype
+      analysis.rs7412Genotype = analysisDB.analysis.rs7412Genotype
+      analysis.APOE = analysisDB.analysis.APOE
+      analysis.risk = analysisDB.analysis.risk
     }
 
-    // Render profiles with userData
     if (req.user.role === 'user') {
-      res.render('profile-user.ejs', { user: userData })
+      res.render('profile-user.ejs', { user, analysis })
     } else if (req.user.role === 'counselor') {
-      res.render('profile-counselor.ejs', { counselor: userData }) // Counselors don't have analysis results, so this only contains firstName, lastName, email
-    } 
+      res.render('profile-counselor.ejs', { counselor: user })
+    }
+
   } catch (error) {
     console.error(error)
     res.status(500).send('Internal Server Error')
