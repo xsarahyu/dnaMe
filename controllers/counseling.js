@@ -93,7 +93,7 @@ module.exports = {
   },
 
   // Send available appointments to calendar on counseling.ejs
-  getAppointments: async (req, res) => {
+  getAvailableAppointments: async (req, res) => {
     try {
       const appointments = await Appointment.find({ booked: false })
       res.json(appointments)

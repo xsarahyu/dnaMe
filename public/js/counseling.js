@@ -14,7 +14,7 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
 calendar.render()
 
 function getAppointments(info, successCallback, failureCallback) {
-  fetch('/counseling/get-appointments', { method: 'GET' })
+  fetch('/counseling/available-appointments', { method: 'GET' })
   .then(response => response.json())
   .then(data => {
     const appointments = data.map(appointment => ({
