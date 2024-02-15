@@ -7,13 +7,13 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
     center: 'title',
     right: 'dayGridMonth,timeGridWeek,timeGridDay'
   },
-  events: getAppointments,
+  events: getAvailableAppointments,
   eventClick: handleEventClick
 })
 
 calendar.render()
 
-function getAppointments(info, successCallback, failureCallback) {
+function getAvailableAppointments(info, successCallback, failureCallback) {
   fetch('/counseling/available-appointments', { method: 'GET' })
   .then(response => response.json())
   .then(data => {
