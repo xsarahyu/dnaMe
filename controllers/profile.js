@@ -33,4 +33,26 @@ exports.getUserProfile = async (req, res) => {
     console.error(error)
     res.status(500).send('Internal Server Error')
   }
+},
+
+exports.getCounselorProfile = async (req, res) => {
+  try {
+    // Fetch counselor data from request
+    const counselor = {
+      firstName: req.user.firstName
+    }
+
+    // Fetch appointment data from database
+    const appointment = await Appointment.find({
+      'counselor.email': req.user.email,
+      booked: true
+    })
+
+    // Update view
+    res.render('profile/counselor.ejs', { counselor, appointment })
+
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Internal Server Error')
+  }
 }

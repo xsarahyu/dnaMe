@@ -7,12 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>dnaMe</title>
   <!-- * --> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-  <!-- * --> <link rel="stylesheet" href="css/profile-settings.css">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/maicons.css">
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="vendor/animate/animate.css">
-  <link rel="stylesheet" href="vendor/owl-carousel/css/owl.carousel.css">
+  <!-- * --> <link rel="stylesheet" href="/css/profile-settings.css">
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/maicons.css">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/vendor/animate/animate.css">
+  <link rel="stylesheet" href="/vendor/owl-carousel/css/owl.carousel.css">
 </head>
 
 <body>
@@ -93,7 +93,7 @@
                   <h4 class="mb-4 mt-0">Appointments</h4>
                   <% if (appointment && Object.values(appointment).length > 0) { %>
                     <% appointment.forEach(i => { %>
-                      <span>
+                      <li>
                         <%= (function formatDate(date) {
                           const options = {
                             weekday: 'long',
@@ -105,8 +105,8 @@
                             hour12: true }
                           return date.toLocaleDateString('en-US', options)
                         })(i.start) %>
-                        EST
-                      </span>
+                        EST &mdash; <%= i.user.lastName %>, <%= i.user.firstName %>
+                      </li>
                     <% }) %>
                   <% } else { %>
                     <span>No appointments yet!</span>
