@@ -67,21 +67,21 @@ module.exports = {
     }
   },
 
-    // Send booked appointments to calendar on home/counselor.ejs
-    getBookedAppointments: async (req, res) => {
-      try {
-        const appointments = await Appointment.find({ 
-          booked: true,
-          'counselor.email': req.user.email
-        })
+  // Send booked appointments to calendar on home/counselor.ejs
+  getBookedAppointments: async (req, res) => {
+    try {
+      const appointments = await Appointment.find({ 
+        booked: true,
+        'counselor.email': req.user.email
+      })
 
-        res.json(appointments)
-        
-      } catch (error) {
-        console.error('Error getting appointments:', error)
-        res.status(500).send('Internal Server Error')
-      }
-    },
+      res.json(appointments)
+      
+    } catch (error) {
+      console.error('Error getting appointments:', error)
+      res.status(500).send('Internal Server Error')
+    }
+  },
 
   // ---------- USER FUNCTION(S) ---------- //
   
