@@ -3,6 +3,6 @@ const router = express.Router()
 const profileController = require('../controllers/profile')
 const { ensureAuth } = require('../middleware/auth')
 
-router.get('/', ensureAuth, profileController.getProfile)
+router.get('/user', ensureAuth, profileController.getUserProfile)
 
 module.exports = router

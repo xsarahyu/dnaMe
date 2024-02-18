@@ -3,7 +3,7 @@
 const Analysis = require('../models/Analysis')
 const Appointment = require('../models/Appointment')
 
-exports.getProfile = async (req, res) => {
+exports.getUserProfile = async (req, res) => {
   try {
     // Fetch user data from request
     const user = {
@@ -27,11 +27,7 @@ exports.getProfile = async (req, res) => {
     const appointment = await Appointment.find({ 'user.email': req.user.email })
 
     // Update view
-    if (req.user.role === 'user') {
-      res.render('profile/user.ejs', { user, analysis, appointment })
-    } else if (req.user.role === 'counselor') {
-      res.render('profile/counselor.ejs', { counselor: user })
-    }
+    res.render('profile/user.ejs', { user, analysis, appointment })
 
   } catch (error) {
     console.error(error)
