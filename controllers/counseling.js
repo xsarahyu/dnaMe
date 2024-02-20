@@ -24,7 +24,7 @@ module.exports = {
       // Iterate over each day, until end of year
       while (startDate.getFullYear() <= 2024) {
         // Get day name
-        const day = startDate.toLocaleDateString('en-US', { weekday: 'long' }) 
+        const day = new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'America/New_York' }).format(startDate)
 
         // Check if schedule exists for current day (no schedule for weekends)
         if (schedule[day]) { 
