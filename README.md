@@ -28,14 +28,14 @@ While dnaMe currently only performs risk analysis of Alzheimer's disease, my fut
   In the APOE genotype, the ε4 allele is considered a risk factor for Alzheimer's, while ε2 is associated with lowered risk.
 
   ### APOE Genotypes and Alzheimer's Risk
-  | rs429358 Genotype | rs7412 Genotype  | APOE Genotype | Alzheimer's Risk         |
-  |:------------------|:-----------------|:------------- |:-------------------------|
-  | TT                | CC               | ε2/ε2         | Lower risk than normal   |
-  | CT                | CT               | ε2/ε3         | Lower risk than normal   |
-  | TT                | CC               | ε2/ε4         | Slightly higher risk     |
-  | CC                | CC               | ε3/ε3         | Normal risk              |
-  | CT                | CC               | ε3/ε4         | Higher risk than normal  |
-  | CC                | CC               | ε4/ε4         | High risk                |
+  | rs429358 Genotype | rs7412 Genotype  | APOE Genotype | Alzheimer's Risk                    |
+  |:------------------|:-----------------|:------------- |:------------------------------------|
+  | TT                | TT               | ε2/ε2         | Lower risk than normal              |
+  | TT                | CT               | ε2/ε3         | Lower risk than normal              |
+  | CT                | CT               | ε2/ε4         | Slightly higher risk than normal    |
+  | TT                | CC               | ε3/ε3         | Normal risk                         |
+  | CT                | CC               | ε3/ε4         | Higher risk than normal             |
+  | CC                | CC               | ε4/ε4         | High risk                           |
 
   ### The App
   1. Given a raw DNA file, which contains hundreds of thousands of rsIDs, dnaMe extracts the genotypes of two SNPs, rs429358 and rs7412.
