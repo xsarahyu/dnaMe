@@ -61,7 +61,7 @@ In the APOE genotype, the ε4 allele is considered a risk factor for Alzheimer's
 2. The app uses this information to determine the alleles that make up one's APOE gene, which can be any combination of ε2, ε3, and ε4.
 3. Lastly, the app takes the APOE gene and determines the genetic predisposition to Alzheimer's disease.
 
-## Sources
+## Sources 
 - [23andMe](https://www.23andme.com/topics/health-predispositions/late-onset-alzheimers/?_gl=1*123e4o4*_ga*MTc3ODAyNTUyMS4xNzA4MzI1Mjk2*_ga_G330GF3ZFF*MTcwODMyNTI5Ni4xLjAuMTcwODMyNTI5Ni4wLjAuMA..)
 - [Testing.com](https://www.testing.com/tests/apoe-genotyping-alzheimer-disease/)
 - [Labcorp](https://www.labcorp.com/tests/504040/i-apoe-i-alzheimer-s-risk)
